@@ -105,6 +105,14 @@ export const styles = StyleSheet.create({
     numlist: {
         fontWeight: "bold",
         color: "#FCD96A"
+    },
+    photoDrawer: {
+        width: 140,
+        height: 140,
+        marginLeft: "auto",
+        marginRight: "auto",
+        backgroundColor: "yellow",
+        borderRadius: 70
     }
 
 
