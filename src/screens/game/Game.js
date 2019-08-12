@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Image } from 'react-native'
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Thumbnail } from 'native-base'
 
 export class Game extends Component {
     render() {
         return (
             <Container>
-                <Header>
+                <Header style={{ backgroundColor: '#eee' }}>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={() => this.props.navigation.openDrawer()} >
                             <Thumbnail small source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} />
                         </Button>
                     </Left>
 
                     <Right>
-                        <Button transparent>
-                            <Icon name='menu' />
+                        <Button transparent onPress={() => this.props.navigation.navigate('Leaderboards')} >
+                            <Image source={require('../../assets/images/mahkota2.png')} style={{ width: 30, height: 30 }} />
                         </Button>
                     </Right>
                 </Header>

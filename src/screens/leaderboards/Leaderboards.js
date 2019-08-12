@@ -6,7 +6,7 @@ export class Leaderboards extends Component {
     render() {
         return (
             <Container>
-                <Header>
+                <Header style={{ backgroundColor: '#eee' }}>
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back' />
@@ -14,7 +14,7 @@ export class Leaderboards extends Component {
                         </Button>
                     </Left>
                     <Body style={{ justifyContent: "center" }}>
-                        <Title>Leader Boards</Title>
+                        <Title style={{ color: "grey" }}>Leader Boards</Title>
                     </Body>
 
                 </Header>

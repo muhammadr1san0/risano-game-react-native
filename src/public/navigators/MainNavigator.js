@@ -4,6 +4,7 @@ import Login from '../../screens/login/Login'
 import Register from '../../screens/register/Register'
 import Game from '../../screens/game/Game'
 import Leaderboards from '../../screens/leaderboards/Leaderboards'
+import CustomsDrawer from '../../components/CustomsDrawer'
 
 const AppNavigation = createStackNavigator({
     Login,
@@ -11,7 +12,7 @@ const AppNavigation = createStackNavigator({
     Game,
     Leaderboards
 }, {
-        initialRouteName: 'Game',
+        initialRouteName: 'Login',
         headerMode: 'none'
     })
 
@@ -23,12 +24,12 @@ const DrawerNavigation = createDrawerNavigator({
     Register,
     Leaderboards
 }, {
-        drawerPosition: 'left',
+        // drawerPosition: 'left',
         // contentComponent: CustomDrawerContentComponent,
-        drawerOpenRoute: 'DrawerOpen',
-        drawerCloseRoute: 'DrawerClose',
-        drawerToggleRoute: 'DrawerToggle',
-        // contentComponent: CustomsDrawer,
+        // drawerOpenRoute: 'DrawerOpen',
+        // drawerCloseRoute: 'DrawerClose',
+        // drawerToggleRoute: 'DrawerToggle',
+        contentComponent: CustomsDrawer,
 
     })
 export default createAppContainer(DrawerNavigation)
