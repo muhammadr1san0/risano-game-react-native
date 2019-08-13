@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
 import { styles } from '../../style/Style'
 import { Content, List, ListItem, Container, Header, Left, Body, Right, Title, Subtitle, Button, Icon, Text, View, Thumbnail, uri } from 'native-base';
+import Leaderboard from 'react-native-leaderboard';
 
 export class Leaderboards extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [
+                { userName: 'Joe', highScore: 52 },
+                { userName: 'Jenny', highScore: 120 },
+            ]
+
+        }
+    }
+    componentDidMount = () => {
+
+    }
+
     render() {
         return (
             <Container>
@@ -39,8 +54,16 @@ export class Leaderboards extends Component {
                         </Text>
                     </View>
                 </View>
+                <View style={[styles.fluid, styles.contentCenter, styles.mt20]}>
+                    {/* <Content style={{ marginTop: 30 }}> */}
+                    <Leaderboard
+                        data={this.state.data}
+                        sortBy='highScore'
+                        labelBy='userName' />
+                    {/* </Content> */}
+                </View>
 
-                <Content style={{ marginTop: 30 }}>
+                {/* <Content style={{ marginTop: 30 }}>
                     <List>
                         <ListItem selected>
                             <Left style={{ width: 3 }}>
@@ -93,7 +116,7 @@ export class Leaderboards extends Component {
                             </Right>
                         </ListItem>
                     </List>
-                </Content>
+                </Content> */}
             </Container>
         )
     }
