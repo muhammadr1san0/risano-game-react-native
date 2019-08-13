@@ -12,7 +12,7 @@ const AppNavigation = createStackNavigator({
     Game,
     Leaderboards
 }, {
-        initialRouteName: 'Leaderboards',
+        initialRouteName: 'Game',
         headerMode: 'none'
     })
 
