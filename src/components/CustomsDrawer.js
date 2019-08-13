@@ -37,7 +37,7 @@ class CustomsDrawer extends Component {
                 <Content>
                     <List>
                         <View>
-                            <ListItem onPress={() => this.props.navigation.navigate('Leaderboard')}>
+                            <ListItem onPress={() => this.props.navigation.navigate('Leaderboards')}>
                                 <Left>
                                     <Image source={require('../assets/images/mahkota2.png')} style={{ width: 30, height: 30, marginRight: 10, marginTop: -5 }} />
                                     <Text>LeaderBoards</Text>
