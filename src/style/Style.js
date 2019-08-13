@@ -113,6 +113,51 @@ export const styles = StyleSheet.create({
         marginRight: "auto",
         backgroundColor: "yellow",
         borderRadius: 70
+    },
+    btnD1: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: "#B7C8CB",
+        borderWidth: 2,
+        borderColor: "white"
+    },
+    btnL1: {
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        backgroundColor: "rgba(179, 185, 174, 0.3)",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    btnD2: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: "rgb(78, 223, 196)",
+        borderWidth: 2,
+        borderColor: "white"
+    },
+    btnL2: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        backgroundColor: "rgba(78, 223, 196, 0.4)",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    textCenter2: {
+        textAlign: "center"
+    },
+    itemCenter: {
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    textGame: {
+        marginTop: 100
+    },
+    mt20: {
+        marginTop: 20
     }
 
 
