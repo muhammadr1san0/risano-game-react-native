@@ -158,6 +158,13 @@ export const styles = StyleSheet.create({
     },
     mt20: {
         marginTop: 20
+    },
+    plushpoint: {
+        position: "absolute",
+        top: 100,
+        left: "35%",
+        color: "orange"
+
     }
 
 

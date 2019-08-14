@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 import users from './users';
+import leaderboards from './leaderboards';
+import games from './games';
 const appReducer = combineReducers({
-    users
+    users,
+    leaderboards,
+    games
 
 });
 

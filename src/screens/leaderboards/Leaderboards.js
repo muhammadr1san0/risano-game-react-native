@@ -1,21 +1,32 @@
 import React, { Component } from 'react'
 import { styles } from '../../style/Style'
 import { Content, List, ListItem, Container, Header, Left, Body, Right, Title, Subtitle, Button, Icon, Text, View, Thumbnail, uri } from 'native-base';
+import { ActivityIndicator } from 'react-native'
 import Leaderboard from 'react-native-leaderboard';
+import { getLeaderboard } from '../../redux/actions/leaderboards'
+import { connect } from 'react-redux'
 
 export class Leaderboards extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                { userName: 'Joe', highScore: 52 },
-                { userName: 'Jenny', highScore: 120 },
-            ]
+            data: [],
+            loading: true
 
         }
     }
-    componentDidMount = () => {
+    componentDidMount = async () => {
 
+        await this.props.dispatch(getLeaderboard())
+            .then((response) => {
+                this.setState({
+                    data: this.props.leaderboard,
+                    loading: false
+                })
+            })
+            .catch((err) => {
+                console.warn(err)
+            })
     }
 
     render() {
@@ -54,12 +65,14 @@ export class Leaderboards extends Component {
                         </Text>
                     </View>
                 </View>
+
+                {(this.state.loading) ? <ActivityIndicator size="large" color="#0000ff" /> : <View></View>}
                 <View style={[styles.fluid, styles.contentCenter, styles.mt20]}>
                     {/* <Content style={{ marginTop: 30 }}> */}
                     <Leaderboard
                         data={this.state.data}
-                        sortBy='highScore'
-                        labelBy='userName' />
+                        sortBy='score'
+                        labelBy='username' />
                     {/* </Content> */}
                 </View>
 
@@ -121,5 +134,10 @@ export class Leaderboards extends Component {
         )
     }
 }
+const mapStateToPops = state => {
+    return {
+        leaderboard: state.leaderboards.leaderboard
+    }
+}
 
-export default Leaderboards
+export default connect(mapStateToPops)(Leaderboards)
