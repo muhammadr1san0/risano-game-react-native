@@ -43,6 +43,18 @@ class CustomsDrawer extends Component {
                                     <Text>LeaderBoards</Text>
                                 </Left>
                             </ListItem>
+                            <ListItem onPress={() => this.props.navigation.navigate('Login')}>
+                                <Left>
+                                    {/* <Image source={require('../assets/images/mahkota2.png')} style={{ width: 30, height: 30, marginRight: 10, marginTop: -5 }} /> */}
+                                    <Text>Login</Text>
+                                </Left>
+                            </ListItem>
+                            <ListItem onPress={() => this.props.navigation.navigate('Register')}>
+                                <Left>
+                                    {/* <Image source={require('../assets/images/mahkota2.png')} style={{ width: 30, height: 30, marginRight: 10, marginTop: -5 }} /> */}
+                                    <Text>Register</Text>
+                                </Left>
+                            </ListItem>
                         </View>
 
                     </List>

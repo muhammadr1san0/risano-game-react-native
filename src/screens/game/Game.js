@@ -195,8 +195,6 @@ export class Game extends Component {
                         })
                     })
                 }
-
-                this.startPettern()
                 //Here is the Trick
                 const { navigation } = this.props;
                 this.focusListener = navigation.addListener('didFocus', () => {

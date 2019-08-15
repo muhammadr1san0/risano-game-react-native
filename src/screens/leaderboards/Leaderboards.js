@@ -11,15 +11,24 @@ export class Leaderboards extends Component {
         super(props);
         this.state = {
             data: [],
-            loading: true
+            loading: true,
+            rank: "",
+            point: "",
+            username: "",
 
         }
     }
 
     getLeaderboarduser = async () => {
-        await this.props.dispatch(getLeaderboarduser())
+        await this.props.dispatch(getLeaderboarduser(this.props.id_user))
             .then((result) => {
-                console.log(this.props.leaderuser)
+                console.log(this.props.leaderuser[0])
+                this.setState({
+                    rank: this.props.rank,
+                    point: this.props.leaderuser[0].score,
+                    username: this.props.leaderuser[0].username
+
+                })
             })
     }
     componentDidMount = async () => {
@@ -57,11 +66,11 @@ export class Leaderboards extends Component {
                 <View style={styles.kotakleader}>
                     <View style={styles.boxLeft}>
                         <Text style={styles.textWhiteb}>RANK</Text>
-                        <Text style={styles.textWhiteb}>100</Text>
+                        <Text style={styles.textWhiteb}>{this.state.rank}</Text>
                     </View>
                     <View style={styles.boxCenter}>
                         <Thumbnail source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} />
-                        <Text style={styles.textWhite}>dhehads</Text>
+                        <Text style={styles.textWhite}>{this.state.username}</Text>
                     </View>
                     <View style={styles.boxRight}>
 
@@ -69,7 +78,7 @@ export class Leaderboards extends Component {
                             POINT
                         </Text>
                         <Text style={styles.textWhiteb}>
-                            1999
+                            {this.state.point}
                         </Text>
                     </View>
                 </View>
@@ -84,60 +93,6 @@ export class Leaderboards extends Component {
                     {/* </Content> */}
                 </View>
 
-                {/* <Content style={{ marginTop: 30 }}>
-                    <List>
-                        <ListItem selected>
-                            <Left style={{ width: 3 }}>
-                                <Text style={styles.numlist}>1</Text>
-                                <Thumbnail small source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} style={styles.mimg} />
-                                <Text>Muhammad Risano</Text>
-                            </Left>
-                            <Right>
-                                <Text>10000k</Text>
-                            </Right>
-                        </ListItem>
-                        <ListItem selected>
-                            <Left style={{ width: 3 }}>
-                                <Text style={styles.numlist}>2</Text>
-                                <Thumbnail small source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} style={styles.mimg} />
-                                <Text>Muhammad Risano</Text>
-                            </Left>
-                            <Right>
-                                <Text>10000k</Text>
-                            </Right>
-                        </ListItem>
-                        <ListItem selected>
-                            <Left style={{ width: 3 }}>
-                                <Text style={styles.numlist}>3</Text>
-                                <Thumbnail small source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} style={styles.mimg} />
-                                <Text>Muhammad Risano</Text>
-                            </Left>
-                            <Right>
-                                <Text>10000k</Text>
-                            </Right>
-                        </ListItem>
-                        <ListItem selected>
-                            <Left style={{ width: 3 }}>
-                                <Text style={styles.numlist}>4</Text>
-                                <Thumbnail small source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} style={styles.mimg} />
-                                <Text>Muhammad Risano</Text>
-                            </Left>
-                            <Right>
-                                <Text>10000k</Text>
-                            </Right>
-                        </ListItem>
-                        <ListItem selected>
-                            <Left style={{ width: 3 }}>
-                                <Text style={styles.numlist}>5</Text>
-                                <Thumbnail small source={{ uri: "https://facebook.github.io/react-native/docs/assets/favicon.png" }} style={styles.mimg} />
-                                <Text>Muhammad Risano</Text>
-                            </Left>
-                            <Right>
-                                <Text>10000k</Text>
-                            </Right>
-                        </ListItem>
-                    </List>
-                </Content> */}
             </Container>
         )
     }
