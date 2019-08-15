@@ -3,7 +3,7 @@ import { styles } from '../../style/Style'
 import { Content, List, ListItem, Container, Header, Left, Body, Right, Title, Subtitle, Button, Icon, Text, View, Thumbnail, uri } from 'native-base';
 import { ActivityIndicator } from 'react-native'
 import Leaderboard from 'react-native-leaderboard';
-import { getLeaderboard } from '../../redux/actions/leaderboards'
+import { getLeaderboard, getLeaderboarduser } from '../../redux/actions/leaderboards'
 import { connect } from 'react-redux'
 
 export class Leaderboards extends Component {
@@ -14,6 +14,13 @@ export class Leaderboards extends Component {
             loading: true
 
         }
+    }
+
+    getLeaderboarduser = async () => {
+        await this.props.dispatch(getLeaderboarduser())
+            .then((result) => {
+                console.log(this.props.leaderuser)
+            })
     }
     componentDidMount = async () => {
 
@@ -27,6 +34,7 @@ export class Leaderboards extends Component {
             .catch((err) => {
                 console.warn(err)
             })
+        this.getLeaderboarduser()
     }
 
     render() {
@@ -136,7 +144,10 @@ export class Leaderboards extends Component {
 }
 const mapStateToPops = state => {
     return {
-        leaderboard: state.leaderboards.leaderboard
+        leaderboard: state.leaderboards.leaderboard,
+        leaderuser: state.leaderboards.leaderuser,
+        rank: state.leaderboards.rank,
+        id_user: state.users.id_user
     }
 }
 

@@ -161,9 +161,15 @@ export const styles = StyleSheet.create({
     },
     plushpoint: {
         position: "absolute",
-        top: 100,
+        top: 60,
         left: "35%",
         color: "orange"
+
+    },
+    totalpoint: {
+        position: "absolute",
+        top: 80,
+        color: "salmon"
 
     }
 

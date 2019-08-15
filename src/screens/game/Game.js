@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, Image, ImageBackground, Alert } from 'react-native'
-import { Container, Header, Left, Body, Right, Button, Icon, Title, Thumbnail, Subtitle, H1, H3 } from 'native-base'
+import { Container, Header, Left, Body, Right, Button, Icon, Title, Thumbnail, Subtitle, H1, H2, H3 } from 'native-base'
 import { styles } from '../../style/Style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { soundbutton } from '../../redux/actions/games';
 import { getpattern } from '../../redux/actions/games'
+import { insertscore } from '../../redux/actions/leaderboards';
 const Sound = require('react-native-sound')
 
 export class Game extends Component {
@@ -23,25 +24,29 @@ export class Game extends Component {
             combo: 0,
             plushpoint: null,
             showpoint: false
-
         }
-
     }
 
+    addpoint = () => {
+        this.setState({
+            poin: this.state.poin + this.state.plushpoint,
+            activepoint: false,
+            showpoint: true,
+            pattern: null
+        })
+    }
     sound1 = () => {
+        console.warn(this.props.id_user)
         this.state.button1.stop(() => {
             this.state.button1.play();
         });
         if (this.state.pattern === 1) {
             if (this.state.activepoint) {
-                this.setState({
-                    poin: this.state.poin + this.state.plushpoint,
-                    activepoint: false,
-                    showpoint: true
-                })
+                this.addpoint()
             }
         } else {
             Alert.alert("anda Kalah")
+            this.savePoint()
         }
 
     }
@@ -51,15 +56,11 @@ export class Game extends Component {
         });
         if (this.state.pattern === 2) {
             if (this.state.activepoint) {
-                this.setState({
-                    poin: this.state.poin + this.state.plushpoint,
-                    activepoint: false,
-                    showpoint: true
-
-                })
+                this.addpoint()
             }
         } else {
             Alert.alert("anda Kalah")
+            this.savePoint()
         }
     }
     sound3 = () => {
@@ -68,34 +69,45 @@ export class Game extends Component {
         });
         if (this.state.pattern === 3) {
             if (this.state.activepoint) {
-                this.setState({
-                    poin: this.state.poin + this.state.plushpoint,
-                    activepoint: false,
-                    showpoint: true
-                })
+                this.addpoint()
             }
         } else {
             Alert.alert("anda Kalah")
+            this.savePoint()
         }
     }
     sound4 = () => {
         this.state.button4.stop(() => {
-            // Note: If you want to play a sound after stopping and rewinding it,
-            // it is important to call play() in a callback.
+
             this.state.button4.play();
         });
         if (this.state.pattern === 4) {
             if (this.state.activepoint) {
-                this.setState({
-                    poin: this.state.poin + this.state.plushpoint,
-                    activepoint: false,
-                    showpoint: true
-                })
+                this.addpoint()
             }
         } else {
             Alert.alert("anda Kalah")
+            this.savePoint()
         }
 
+    }
+    savePoint = async () => {
+        this.stopTimeout()
+        await this.props.dispatch(insertscore({
+            id_user: this.props.id_user,
+            score: this.state.poin
+        }))
+            .then((res) => {
+                this.props.navigation.navigate('Leaderboards')
+            })
+            .catch((err) => {
+                console.warn(err)
+                alert("Maff Ada masalah server Point tidak tersimpan")
+            })
+    }
+    stopTimeout = () => {
+        clearTimeout(timecombo);
+        clearTimeout(timepattern);
     }
 
     startPettern = async () => {
@@ -103,27 +115,39 @@ export class Game extends Component {
             .then((res) => {
                 // console.warn(this.props.pattern)
                 if (this.props.pattern) {
-                    let combo = this.props.pattern.length
-                    this.setState({
-                        combo: combo
-                    })
+
                     let lengthdelay = 3000
+                    lengthcombo = this.props.pattern.length
                     this.props.pattern.map((item) => {
                         let delay = item.delay
                         let chilpattern = item.pattern.split("")
                         chilpattern.push(0)
-                        setTimeout(() => {
+                        timecombo = setTimeout(() => {
                             this.setState({
                                 plushpoint: item.plushpoint
                             })
-                            // let chilpattern = [1, 2, 3, 4, 1, 2, 3, 4]
+
                             chilpattern.map((item2, index) => {
-                                setTimeout(() => {
-                                    // console.warn(item2)
+                                timepattern = setTimeout(() => {
                                     if (item2 === 0) {
                                         this.setState({
-                                            combo: this.state.combo - 1
+                                            combo: this.state.combo + 1
                                         })
+                                        if (!this.props.id_user) {
+                                            Alert.alert("You Should Login")
+                                            this.stopTimeout()
+                                            delay = 0
+                                            lengthdelay = 0
+                                            chilpattern = null
+                                            this.props.navigation.navigate('Login')
+                                            return false
+
+                                        }
+                                        if (parseInt(this.state.combo) === parseInt(lengthcombo)) {
+                                            Alert.alert("Game Selesai")
+                                            this.savePoint()
+                                        }
+
                                     }
                                     this.setState({
                                         pattern: parseInt(item2),
@@ -145,6 +169,12 @@ export class Game extends Component {
             })
     }
 
+    // componentDidUpdate = () => {
+    //     this.startPettern()
+    // }
+    // componentWillReceiveProps = () => {
+
+    // }
     componentWillMount = async () => {
 
         await this.props.dispatch(soundbutton())
@@ -165,27 +195,29 @@ export class Game extends Component {
                         })
                     })
                 }
+
                 this.startPettern()
-                console.warn(this.state.button2)
+                //Here is the Trick
+                const { navigation } = this.props;
+                this.focusListener = navigation.addListener('didFocus', () => {
+                    this.setState({
+                        pattern: null,
+                        buttonNumber: null,
+                        poin: 0,
+                        activepoint: false,
+                        combo: 0,
+                        plushpoint: null,
+                        showpoint: false
+                    });
+                    this.startPettern()
 
-
+                });
 
             })
             .catch((err) => {
                 console.warn(err)
                 Alert.alert("Program Bermasalah coba ulangi lagi")
             })
-
-        // var whoosh = new Sound('http://192.168.6.112/sound/909-HiTom-3D3.wav', Sound.MAIN_BUNDLE, (error) => {
-        //     if (error) {
-        //         console.log('failed to load the sound', error);
-        //         return;
-        //     }
-        //     // loaded successfully
-        //     console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
-
-        // });
-        // this.setState({ button1: whoosh })
     }
     render() {
         return (
@@ -206,12 +238,12 @@ export class Game extends Component {
                 </Header>
                 <View style={{ flex: 1 }}>
                     <ImageBackground source={require('../../assets/images/backatas.png')} style={{ width: '100%', height: '60%' }}>
-                        <H1 style={{ textAlign: "right", fontWeight: "bold", color: "salmon" }}>POINT : {this.state.poin}</H1>
+                        <H2 style={styles.totalpoint}>POINT : {this.state.poin}</H2>
                         {(this.state.showpoint) ? <H3 style={styles.plushpoint}>+ {this.state.plushpoint} Point</H3> : <View></View>}
                         <View style={styles.textGame}>
 
 
-                            <Text style={styles.textCenter2}>Combo Hits : {this.state.combo}</Text>
+                            <Text style={[styles.textCenter2, { marginTop: 30 }]}>Combo Hits : {this.state.combo}</Text>
                             <Image source={require('../../assets/images/iconsayaa.png')} style={{ marginRight: "auto", marginLeft: "auto" }} />
                             <Text style={styles.textCenter2}>Shadow Of Sorrow</Text>
                         </View>
@@ -291,7 +323,10 @@ export class Game extends Component {
 const mapStateToProp = state => {
     return {
         soundbutton: state.games.soundbutton,
-        pattern: state.games.pattern
+        pattern: state.games.pattern,
+        id_user: state.users.id_user,
+        token: state.users.token
+
     }
 }
 
