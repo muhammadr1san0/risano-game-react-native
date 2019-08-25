@@ -51,7 +51,7 @@ export class Leaderboards extends Component {
             <Container>
                 <Header style={{ backgroundColor: '#eee' }}>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
                             <Icon name='arrow-back' />
                             <Text>Back</Text>
                         </Button>

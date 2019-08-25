@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getLeaderboard = (id_user) => {
     return {
         type: 'GET_LEADERBOARD',
-        payload: axios.get('http://192.168.6.112:4000/leaderboard?page=1', {
+        payload: axios.get('http://titaktitak.muhammadrisano.online/leaderboard?page=1', {
             headers: { "authorization": "jangan-coba-coba" },
         }),
     };
@@ -11,7 +11,7 @@ export const getLeaderboard = (id_user) => {
 export const insertscore = (data) => {
     return {
         type: 'INSERT_SCORE',
-        payload: axios.post('http://192.168.6.112:4000/leaderboard', data, {
+        payload: axios.post('http://titaktitak.muhammadrisano.online/leaderboard', data, {
             headers: { "authorization": "jangan-coba-coba" },
         }),
     };
@@ -19,7 +19,7 @@ export const insertscore = (data) => {
 export const getLeaderboarduser = (id_user) => {
     return {
         type: 'GET_USER',
-        payload: axios.get('http://192.168.6.112:4000/leaderboard/' + id_user, {
+        payload: axios.get('http://titaktitak.muhammadrisano.online/leaderboard/' + id_user, {
             headers: { "authorization": "jangan-coba-coba" },
         }),
     };

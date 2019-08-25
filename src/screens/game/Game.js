@@ -23,7 +23,8 @@ export class Game extends Component {
             activepoint: false,
             combo: 0,
             plushpoint: null,
-            showpoint: false
+            showpoint: false,
+            informasi: 3
         }
     }
 
@@ -109,8 +110,32 @@ export class Game extends Component {
         clearTimeout(timecombo);
         clearTimeout(timepattern);
     }
+    startInfo = () => {
+        this.setState({
+            informasi: 3
+        })
+        for (let i = 1; i <= 3; i++) {
+            setTimeout(() => {
+                this.setState({
+                    informasi: this.state.informasi - 1
+                })
+            }, i * 400)
+        }
+        setTimeout(() => {
+            this.setState({
+                informasi: "Go !!!"
+            })
+        }, 1800)
+        setTimeout(() => {
+            this.setState({
+                informasi: null
+            })
+        }, 2900)
+
+    }
 
     startPettern = async () => {
+        this.startInfo();
         await this.props.dispatch(getpattern())
             .then((res) => {
                 // console.warn(this.props.pattern)
@@ -220,7 +245,6 @@ export class Game extends Component {
     render() {
         return (
             <Container>
-
                 <Header style={{ backgroundColor: '#eee' }}>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.openDrawer()} >
@@ -239,8 +263,10 @@ export class Game extends Component {
                         <H2 style={styles.totalpoint}>POINT : {this.state.poin}</H2>
                         {(this.state.showpoint) ? <H3 style={styles.plushpoint}>+ {this.state.plushpoint} Point</H3> : <View></View>}
                         <View style={styles.textGame}>
-
-
+                            {(this.state.informasi) ?
+                                <Text style={styles.info}>{this.state.informasi}</Text> :
+                                <View></View>
+                            }
                             <Text style={[styles.textCenter2, { marginTop: 30 }]}>Combo Hits : {this.state.combo}</Text>
                             <Image source={require('../../assets/images/iconsayaa.png')} style={{ marginRight: "auto", marginLeft: "auto" }} />
                             <Text style={styles.textCenter2}>Shadow Of Sorrow</Text>
@@ -269,7 +295,6 @@ export class Game extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this.sound2.bind(this)}>
                                 {(this.state.pattern === 2) ?
-
                                     <View style={[styles.btnL1, { marginRight: 100 }, { backgroundColor: "rgba(235, 183, 69,.4)" }]}>
                                         <View style={[styles.btnD1, { backgroundColor: "rgb(235, 183, 69)" }]}>
                                         </View>
@@ -279,7 +304,6 @@ export class Game extends Component {
                                         </View>
                                     </View>
                                 }
-
                             </TouchableOpacity>
                         </View>
                         {/* btn 2 */}
@@ -312,8 +336,6 @@ export class Game extends Component {
                         </View>
                     </ImageBackground>
                 </View>
-
-
             </Container>
         )
     }

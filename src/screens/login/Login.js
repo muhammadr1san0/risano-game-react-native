@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, Alert, AsyncStorage } from 'react-native'
-import { Container, Header, Content, Form, Item, Input, Label, Button, H3 } from 'native-base';
+import { Text, View, Alert, AsyncStorage, Image } from 'react-native'
+import { Container, Header, Content, Form, Item, Input, Label, Button, H3, H2 } from 'native-base';
 import { styles } from '../../style/Style'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { fasFaArrowRight } from '@fortawesome/free-solid-svg-icons'
@@ -30,7 +30,7 @@ export class Login extends Component {
                 AsyncStorage.setItem('role_id', response.action.payload.data.result.role_id.toString())
                 AsyncStorage.setItem('fullname', response.action.payload.data.result.fullname.toString())
                 Alert.alert("Login Berhasil")
-                this.props.navigation.navigate('Game')
+                this.props.navigation.navigate('Home')
             })
             .catch((err) => {
                 console.warn(err)
@@ -46,10 +46,12 @@ export class Login extends Component {
             <ScrollView>
                 <Container>
                     <View style={styles.flex3}>
-
+                        <Image source={require('../../assets/images/iconsayaa.png')} style={{ marginTop: 70, marginLeft: 50, width: 300, height: 100 }} />
+                        <H2 style={{ marginLeft: "auto", marginRight: "auto", marginTop: 30, color: "orange" }}>Login Here</H2>
                     </View>
                     <View style={[styles.flex2, styles.fluid, styles.contentCenter]}>
                         <View>
+
                             <Form>
                                 <Item floatingLabel>
                                     <Label>Username</Label>
@@ -57,7 +59,7 @@ export class Login extends Component {
                                 </Item>
                                 <Item floatingLabel last>
                                     <Label>Password</Label>
-                                    <Input onChangeText={(password) => this.setState({ password })} value={this.state.password} />
+                                    <Input secureTextEntry={true} onChangeText={(password) => this.setState({ password })} value={this.state.password} />
                                 </Item>
                             </Form>
                         </View>
@@ -73,7 +75,7 @@ export class Login extends Component {
 
 
                     <View style={[styles.flex1, styles.fluid, styles.contentCenter, styles.textLeftRight, { alignItems: "flex-end" }]}>
-                        <Text style={[styles.mb20, { color: "grey" }]}> Sign Up</Text><Text style={[styles.mb20, { color: "grey" }]}>Forgot Password</Text>
+                        <Text style={[styles.mb20, { color: "grey" }]} onPress={() => this.props.navigation.navigate('Register')}> Sign Up</Text><Text style={[styles.mb20, { color: "grey" }]} onPress={() => this.props.navigation.navigate('Home')}>Back Home</Text>
                     </View>
                 </Container>
             </ScrollView>
