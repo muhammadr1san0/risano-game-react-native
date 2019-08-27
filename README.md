@@ -22,15 +22,14 @@ Music Game App is an application playing game that you must touch a button and f
 
 ## Demo
 
-### First Page
+### First Home Page
 <img src="src/assets/images/git/game-home.jpeg" width='500px'/>
   
-### Register Page
-<img src="https://i.imgur.com/VznU3XW.jpg" title="source: imgur.com" width='500px'/>
+### Login Page
+<img src="src/assets/images/git/game-login.jpeg" width='500px'/>
 
-### Main Page
-<img src="https://i.imgur.com/8mQ29f7.jpg" title="source: imgur.com" width='500px'/>
+### Play Game Page
+<img src="src/assets/images/git/game-play.jpeg" width='500px'/>
 
 ### Leaderboard Page
-<img src="https://i.imgur.com/qOacRzp.jpg" title="source: imgur.com" width='500px'/>
-  
+<img src="src/assets/images/git/game-leaderboard.jpeg" width='500px'/>
