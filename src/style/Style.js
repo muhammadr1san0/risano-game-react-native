@@ -46,6 +46,9 @@ export const styles = StyleSheet.create({
     mb20: {
         marginBottom: 20
     },
+    mb5: {
+        marginBottom: 5
+    },
     borderInput: {
         width: "90%",
         backgroundColor: "#eee",
@@ -158,6 +161,36 @@ export const styles = StyleSheet.create({
     },
     mt20: {
         marginTop: 20
+    },
+    plushpoint: {
+        position: "absolute",
+        top: 60,
+        left: "35%",
+        color: "orange"
+
+    },
+    totalpoint: {
+        position: "absolute",
+        top: 80,
+        color: "salmon"
+
+    },
+    btnhome: {
+        color: "white",
+        fontWeight: "bold",
+        fontSize: 20
+    },
+    info: {
+        fontWeight: "bold",
+        fontSize: 30,
+        textAlign: "center"
+    },
+    containerbtn: {
+
+        borderLeftWidth: 10,
+        borderRightWidth: 10,
+        borderLeftColor: "salmon",
+        borderRightColor: "grey"
     }
 
 
