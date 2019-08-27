@@ -32,7 +32,11 @@ const users = (state = globalState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                user: action.payload.data.result
+                user: action.payload.data.result,
+                id_user: action.payload.data.result.id_user,
+                token: action.payload.data.result.token,
+                username: action.payload.data.result.username,
+                fullname: action.payload.data.result.fullname
             };
         case 'REGISTER_USER_PENDING':
             return {

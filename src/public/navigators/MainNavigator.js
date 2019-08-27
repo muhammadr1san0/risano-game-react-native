@@ -5,14 +5,16 @@ import Register from '../../screens/register/Register'
 import Game from '../../screens/game/Game'
 import Leaderboards from '../../screens/leaderboards/Leaderboards'
 import CustomsDrawer from '../../components/CustomsDrawer'
+import Home from '../../screens/home/Home'
 
 const AppNavigation = createStackNavigator({
     Login,
     Register,
     Game,
-    Leaderboards
+    Leaderboards,
+    Home
 }, {
-        initialRouteName: 'Game',
+        initialRouteName: 'Home',
         headerMode: 'none'
     })
 
